@@ -1,0 +1,96 @@
+
+condition        n accuracy           95% CI no answer  cut off  words
+direct         122    21.3%   [13.6%, 29.4%]      0.0%     0.0%      2
+cot            122    43.4%   [33.6%, 52.8%]      4.1%     4.1%    846
+cot_brief      122    25.4%   [17.5%, 33.9%]      0.0%     0.0%    374
+restate        122    29.5%   [21.0%, 38.1%]      0.0%     0.0%    621
+extract_llm    122     7.4%    [2.6%, 12.9%]      0.0%     0.0%     68
+extract_compare  122    19.7%   [12.5%, 27.1%]      0.8%     0.8%    522
+extract_code   122    43.4%   [34.7%, 52.4%]     48.4%     0.0%     68
+gold_llm       122    45.9%   [37.7%, 54.4%]      0.0%     0.0%      2
+gold_cot       122    70.5%   [62.6%, 78.2%]     11.5%    11.5%    826
+
+accuracy by number of relationships:
+                   2      3      4      5
+direct           44%     7%    10%    22%
+cot              81%    41%    29%    22%
+cot_brief        59%    19%     6%    16%
+restate          53%    33%     3%    28%
+extract_llm      19%     4%     0%     6%
+extract_compare    28%    15%    13%    22%
+extract_code     47%    52%    48%    28%
+gold_llm         69%    41%    35%    38%
+gold_cot         91%    74%    65%    53%
+
+question 3 - is listing relationships special? (paired, same questions)
+  listing vs generic reasoning               -36.1%  CI [-46.3%, -26.2%]  only first right: 1, only second right: 45
+  listing vs restating the stories           -22.1%  CI [-30.8%, -14.2%]  only first right: 2, only second right: 29
+  listing vs brief reasoning (similar length) -18.0%  CI [-26.3%, -10.2%]  only first right: 4, only second right: 26
+  list-and-compare vs generic reasoning      -23.8%  CI [-34.4%, -13.2%]  only first right: 7, only second right: 36
+  list-and-compare vs restating               -9.8%  CI [-18.8%, -1.6%]  only first right: 9, only second right: 21
+  list-and-compare vs listing only           +12.3%  CI [+5.0%, +19.5%]  only first right: 18, only second right: 3
+  restating vs generic reasoning             -13.9%  CI [-24.0%, -3.3%]  only first right: 11, only second right: 28
+  generic reasoning vs direct                +22.1%  CI [+10.3%, +34.5%]  only first right: 40, only second right: 13
+  Listing is 'special' only if it beats BOTH controls with an interval above zero,
+  at a similar number of words (see table above).
+
+question 1 - reading or matching?
+  matching-only vs reading-only               +2.5%  CI [-11.1%, +15.3%]  only first right: 34, only second right: 31
+  true relationships: reasoning vs at a glance +24.6%  CI [+14.3%, +35.0%]  only first right: 40, only second right: 10
+  reasoning from true relationships vs stories +27.0%  CI [+15.8%, +38.5%]  only first right: 44, only second right: 11
+  true relationships vs stories, at a glance +24.6%  CI [+14.6%, +34.7%]  only first right: 39, only second right: 9
+
+reading (extraction): triple precision 85.6%, recall 83.6%, F1 84.6%
+  questions with all five stories read correctly: 26.7%
+  missed gold triples by cause: {'direction': 203, 'type': 95, 'missing': 47}
+  extract_llm accuracy when reading was perfect: 6.2%  (n=32)
+  extract_llm accuracy when reading had an error: 8.0%  (n=88)
+
+stability across reworded twins (same question, different wording):
+  direct        same outcome on both wordings: 82%  (n=22 pairs)
+  cot           same outcome on both wordings: 77%  (n=22 pairs)
+  cot_brief     same outcome on both wordings: 73%  (n=22 pairs)
+  restate       same outcome on both wordings: 77%  (n=22 pairs)
+  extract_llm   same outcome on both wordings: 86%  (n=22 pairs)
+  extract_compare same outcome on both wordings: 64%  (n=22 pairs)
+  extract_code  same outcome on both wordings: 45%  (n=22 pairs)
+  gold_llm      same outcome on both wordings: 41%  (n=22 pairs)
+  gold_cot      same outcome on both wordings: 55%  (n=22 pairs)
+
+answer letters chosen / wrong answers by distractor type:
+  direct        {'A': 20, 'B': 27, 'C': 39, 'D': 36}  |  {'direction_flip': 32, 'lexical': 56, 'label_swap': 8}
+  cot           {'A': 30, 'B': 27, 'C': 37, 'D': 23, 'none': 5}  |  {'direction_flip': 21, 'lexical': 41, 'label_swap': 2}
+  cot_brief     {'A': 31, 'B': 34, 'C': 28, 'D': 29}  |  {'lexical': 71, 'direction_flip': 19, 'label_swap': 1}
+  restate       {'A': 29, 'B': 22, 'C': 36, 'D': 35}  |  {'lexical': 69, 'direction_flip': 17}
+  extract_llm   {'A': 22, 'B': 29, 'C': 40, 'D': 31}  |  {'lexical': 104, 'direction_flip': 7, 'label_swap': 2}
+  extract_compare {'A': 37, 'B': 23, 'C': 35, 'D': 26, 'none': 1}  |  {'direction_flip': 33, 'lexical': 63, 'label_swap': 1}
+  extract_code  {'A': 16, 'B': 17, 'C': 15, 'D': 15, 'none': 59}  |  {'lexical': 4, 'direction_flip': 5, 'label_swap': 1}
+  gold_llm      {'A': 24, 'B': 41, 'C': 33, 'D': 24}  |  {'direction_flip': 36, 'lexical': 21, 'label_swap': 9}
+  gold_cot      {'A': 31, 'B': 32, 'C': 23, 'D': 22, 'none': 14}  |  {'direction_flip': 12, 'lexical': 10}
+
+accuracy on replies that finished (not cut off):
+  direct           21.3%  (n=122)
+  cot              45.3%  (n=117)
+  cot_brief        25.4%  (n=122)
+  restate          29.5%  (n=122)
+  extract_llm       7.4%  (n=122)
+  extract_compare  19.8%  (n=121)
+  extract_code     43.4%  (n=122)
+  gold_llm         45.9%  (n=122)
+  gold_cot         79.6%  (n=108)
+
+wrong picks: did the chosen story keep the source's relationship types?
+  (by chance about 56% of distractors keep the types and 44% change one)
+  direct          same types, wrong arrangement:  76   one type changed:  20
+  cot             same types, wrong arrangement:  54   one type changed:  10
+  cot_brief       same types, wrong arrangement:  75   one type changed:  16
+  restate         same types, wrong arrangement:  68   one type changed:  18
+  extract_llm     same types, wrong arrangement:  83   one type changed:  30
+  extract_compare same types, wrong arrangement:  84   one type changed:  13
+  extract_code    same types, wrong arrangement:   9   one type changed:   1
+  gold_llm        same types, wrong arrangement:  51   one type changed:  15
+  gold_cot        same types, wrong arrangement:  20   one type changed:   2
+
+reading errors by sentence style:
+  active   1419 relationships, missed 6.2%, reversed 0.3%
+  passive   686 relationships, missed 37.5%, reversed 29.0%

@@ -1,0 +1,16 @@
+# Model weights and the llama.cpp build: large and not ours (see README for where to get them)
+*.gguf
+tools/
+
+# Course material that is not part of the pipeline
+*.zip
+
+# Local run logs and backups
+*.log
+*.bak
+results/mock*.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
